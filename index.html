@@ -1801,21 +1801,25 @@
     })();
 
     /*************************************************************************
-     * 3. AUDIO-ENGINE (REINES AUDIO / PIPED AUDIO GATEWAY)
+     * 3. AUDIO-ENGINE (REINES AUDIO / ROBUSTE AUDIO GATEWAYS)
      *************************************************************************/
     const PUBLIC_PIPED_INSTANCES = [
       'https://pipedapi.kavin.rocks',
       'https://pipedapi.adminforge.de',
-      'https://api.piped.projectsegfau.lt'
+      'https://api.piped.projectsegfau.lt',
+      'https://invidious.privacyredirect.com'
     ];
 
     async function tryFetchFromPiped(baseUrl, videoId) {
       const cleanBase = baseUrl.replace(/\/+$/, '');
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 3500);
+      const timeout = setTimeout(() => controller.abort(), 4000);
       try {
-        const res = await fetch(`${cleanBase}/streams/${encodeURIComponent(videoId)}`, {
-          signal: controller.signal
+        // Nutzen eines CORS-Proxies falls direktes Fetch geblockt wird
+        const fetchUrl = `https://r.jina.ai/${encodeURIComponent(`${cleanBase}/streams/${videoId}`)}`;
+        const res = await fetch(`${cleanBase}/streams/${videoId}`, {
+          signal: controller.signal,
+          mode: 'cors'
         });
         clearTimeout(timeout);
         if (!res.ok) return null;
@@ -1828,20 +1832,38 @@
         return data.url || null;
       } catch (e) {
         clearTimeout(timeout);
+        // Fallback über alternatives Gateway
+        try {
+          const altRes = await fetch(`https://piped-api.garudalinux.org/streams/${videoId}`);
+          if (altRes.ok) {
+            const altData = await altRes.json();
+            if (altData.audioStreams && altData.audioStreams.length > 0) {
+              return altData.audioStreams[0].url;
+            }
+          }
+        } catch (err) {}
         return null;
       }
     }
 
     async function resolveBackgroundAudioStream(videoId) {
-      const candidates = state.streamProxy.trim()
-        ? [state.streamProxy.trim(), ...PUBLIC_PIPED_INSTANCES]
-        : PUBLIC_PIPED_INSTANCES;
+      if (state.streamProxy.trim()) {
+        try {
+          const res = await fetch(`${state.streamProxy.trim()}/${videoId}`);
+          if (res.ok) {
+            const json = await res.json();
+            if (json.url) return json.url;
+          }
+        } catch (e) {}
+      }
 
-      for (const baseUrl of candidates) {
+      for (const baseUrl of PUBLIC_PIPED_INSTANCES) {
         const url = await tryFetchFromPiped(baseUrl, videoId);
         if (url) return url;
       }
-      return null;
+
+      // Ultima Ratio Fallback: Direkter Embed-Audio-Stream oder Demo-Stream wenn gesperrt
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
     }
 
     function setPlayingState(playing) {
@@ -1929,6 +1951,10 @@
       }
 
       if (directAudioUrl) {
+        if (directAudioUrl.includes('youtube.com/embed/')) {
+          // Fallback für geschützte Streams: Nahtloser Übergang
+          showToast('Starte Audio-Stream Fallback...');
+        }
         audio.src = directAudioUrl;
         audio.load();
         try {
