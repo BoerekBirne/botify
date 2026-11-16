@@ -487,37 +487,6 @@
       display: block;
     }
 
-    .card-play-fab {
-      position: absolute;
-      right: 8px;
-      bottom: 8px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background-color: var(--essential-bright-accent);
-      color: #000000;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.15s ease;
-      cursor: pointer;
-    }
-
-    .music-card:hover .card-play-fab,
-    .music-card.playing .card-play-fab {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .card-play-fab:hover {
-      background-color: var(--essential-bright-accent-hover);
-      transform: scale(1.06);
-    }
-
     .card-title {
       font-size: 15px;
       font-weight: 700;
@@ -655,29 +624,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    /* SICHTBARER MINI-VIDEO-CONTAINER GEGEN AUTOPLAY-/SANDBOX-SPERREN */
-    .yt-mini-box {
-      width: 100px;
-      height: 56px;
-      border-radius: 4px;
-      overflow: hidden;
-      background-color: #000000;
-      flex-shrink: 0;
-      display: none;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .yt-mini-box.active {
-      display: block;
-    }
-
-    .yt-mini-box iframe,
-    .yt-mini-box > div {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
     }
 
     .now-playing-info {
@@ -933,7 +879,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* MOBILE BOTTOM NAVIGATION & FULLSCREEN DRAWER (HIDDEN ON DESKTOP) */
+    /* MOBILE BOTTOM NAVIGATION & FULLSCREEN DRAWER */
     .mobile-bottom-nav {
       display: none;
     }
@@ -942,7 +888,6 @@
       display: none;
     }
 
-    /* RESPONSIVE MOBILE STYLES (iPhone / Safari / Android) */
     @media (max-width: 768px) {
       body {
         padding: 0;
@@ -1021,7 +966,6 @@
         display: none;
       }
 
-      /* FLOATING MOBILE MINI PLAYER */
       .player-bar {
         position: fixed;
         left: 8px;
@@ -1048,11 +992,6 @@
         height: 44px;
       }
 
-      .yt-mini-box {
-        width: 78px;
-        height: 44px;
-      }
-
       .player-center {
         width: auto;
         flex-direction: row;
@@ -1073,7 +1012,6 @@
         color: var(--text-base);
       }
 
-      /* MOBILE BOTTOM TAB BAR */
       .mobile-bottom-nav {
         display: flex;
         position: fixed;
@@ -1110,7 +1048,6 @@
         color: var(--text-base);
       }
 
-      /* MOBILE FULLSCREEN PLAYER DRAWER */
       .mobile-fullscreen-player {
         position: fixed;
         inset: 0;
@@ -1232,7 +1169,6 @@
       </div>
       <button class="avatar-placeholder" id="btn-open-settings" title="Einstellungen & Google API Key" aria-label="Einstellungen">
         <svg viewBox="0 0 16 16" width="16" height="16">
-          <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" style="display:none;"></path>
           <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
         </svg>
       </button>
@@ -1275,7 +1211,7 @@
       </div>
 
       <div id="main-content">
-        <!-- Dynamischer Inhalt (Suche, Empfehlungen, Playlist-Details, Warteschlange) -->
+        <!-- Dynamischer Inhalt -->
       </div>
     </main>
 
@@ -1289,7 +1225,6 @@
           <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"></path>
         </svg>
       </div>
-      <!-- VIDEO-PLAYER WURDE ENTFERNT - REINES AUDIO -->
       <div class="now-playing-info">
         <div class="now-playing-title" id="player-title">Kein Titel ausgewählt</div>
         <div class="now-playing-artist" id="player-artist">Wähle einen Song aus</div>
@@ -1482,21 +1417,16 @@
         <label class="form-label" for="input-google-api-key">Google API Key (YouTube Data API v3)</label>
         <input type="password" class="form-input" id="input-google-api-key" placeholder="AIzaSy...">
         <p class="form-hint">
-          Wird lokal im Browser gespeichert und ausschließlich für die Musiksuche über die YouTube Data API v3 genutzt.
+          Wird lokal im Browser gespeichert und für die Musiksuche genutzt.
         </p>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="input-stream-proxy">Optional: Eigene Audio-Proxy URL (kein Server nötig)</label>
-        <input type="url" class="form-input" id="input-stream-proxy" placeholder="Leer lassen für automatischen Modus">
+        <label class="form-label" for="input-stream-proxy">Audio-Stream-Proxy URL (optional)</label>
+        <input type="url" class="form-input" id="input-stream-proxy" placeholder="z. B. https://dein-proxy.onrender.com oder leer lassen">
         <p class="form-hint">
-          <strong>Kein eigener Server nötig:</strong> Die App nutzt automatisch öffentliche Audio-Gateways für Safari-Hintergrundwiedergabe und fällt sonst direkt auf den YouTube-Player zurück. <br><br>
-          <strong>Hinweis zu Fehler 153 in der Vorschau:</strong> YouTube blockiert eingebettete Player innerhalb von Sandbox-Vorschauen (wie Gemini Canvas). Sobald du diese HTML-Datei kostenlos auf <strong>GitHub Pages</strong>, <strong>Netlify</strong> oder <strong>Vercel</strong> hochlädst (statisches Hosting, 0 Wartung), verschwindet Fehler 153 sofort!
+          Wenn du einen eigenen oder kostenlosen CORS-Audio-Proxy nutzt (oder einen Public-Proxy), kannst du ihn hier eintragen. Ansonsten nutzt Botify die integrierten Gateways mit automatischem Fallback.
         </p>
-      </div>
-
-      <div style="background: rgba(30, 215, 96, 0.1); border: 1px solid rgba(30, 215, 96, 0.25); padding: 12px; border-radius: 8px; font-size: 12px; color: var(--text-base); line-height: 1.5;">
-        <strong>iPhone / Safari Tipp:</strong> Öffne die gehostete Seite in Safari → <em>Teilen</em> → <em>Zum Home-Bildschirm</em>. Falls Safari beim Sperren pausiert, einfach auf dem Sperrbildschirm auf <em>Play</em> drücken.
       </div>
 
       <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 4px;">
@@ -1530,9 +1460,7 @@
         <h2 class="modal-title">Zu Playlist hinzufügen</h2>
         <button class="icon-btn" id="btn-close-add-modal">✕</button>
       </div>
-      <div id="add-playlist-options" style="display: flex; flex-direction: column; gap: 8px;">
-        <!-- Dynamische Playlist-Auswahl -->
-      </div>
+      <div id="add-playlist-options" style="display: flex; flex-direction: column; gap: 8px;"></div>
     </div>
   </div>
 
@@ -1545,14 +1473,14 @@
       </div>
       <div class="form-group">
         <label class="form-label" for="custom-title">Titel</label>
-        <input type="text" class="form-input" id="custom-title" placeholder="z. B. Deep Focus Radio">
+        <input type="text" class="form-input" id="custom-title" placeholder="z. B. Mein Lieblingslied">
       </div>
       <div class="form-group">
-        <label class="form-label" for="custom-artist">Künstler / Sender</label>
-        <input type="text" class="form-input" id="custom-artist" placeholder="z. B. Ambient Stream">
+        <label class="form-label" for="custom-artist">Künstler</label>
+        <input type="text" class="form-input" id="custom-artist" placeholder="z. B. Artist">
       </div>
       <div class="form-group">
-        <label class="form-label" for="custom-url">Direkte Audio-URL (MP3, AAC, M4A, OGG)</label>
+        <label class="form-label" for="custom-url">Direkte Audio-URL (MP3, M4A)</label>
         <input type="url" class="form-input" id="custom-url" placeholder="https://example.com/song.mp3">
       </div>
       <div style="display: flex; justify-content: flex-end;">
@@ -1567,7 +1495,7 @@
   <script>
     /*************************************************************************
      * 1. GLOBALE VARIABLEN & AUDIO-ELEMENT INITIALISIERUNG
-     ********************************-----------------------------------------*/
+     *************************************************************************/
     const audio = document.getElementById('audio-player');
 
     const STORAGE_KEYS = {
@@ -1753,7 +1681,7 @@
     }
 
     /*************************************************************************
-     * 2. DYNAMISCHES PWA MANIFEST & APPLE TOUCH ICON (SAFARI HOMESCREEN)
+     * 2. PWA MANIFEST & APPLE ICON
      *************************************************************************/
     (function setupPWA() {
       try {
@@ -1790,9 +1718,7 @@
           display: 'standalone',
           background_color: '#000000',
           theme_color: '#000000',
-          icons: [
-            { src: iconUrl, sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
-          ]
+          icons: [{ src: iconUrl, sizes: '512x512', type: 'image/png' }]
         };
         const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
         const manifestLink = document.getElementById('pwa-manifest');
@@ -1801,55 +1727,20 @@
     })();
 
     /*************************************************************************
-     * 3. AUDIO-ENGINE (REINES AUDIO / ROBUSTE AUDIO GATEWAYS)
+     * 3. AUDIO-STREAM RESOLVER (MIT PROXY ODER PIPED FALLBACK)
      *************************************************************************/
     const PUBLIC_PIPED_INSTANCES = [
       'https://pipedapi.kavin.rocks',
       'https://pipedapi.adminforge.de',
       'https://api.piped.projectsegfau.lt',
-      'https://invidious.privacyredirect.com'
+      'https://piped-api.garudalinux.org'
     ];
-
-    async function tryFetchFromPiped(baseUrl, videoId) {
-      const cleanBase = baseUrl.replace(/\/+$/, '');
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 4000);
-      try {
-        // Nutzen eines CORS-Proxies falls direktes Fetch geblockt wird
-        const fetchUrl = `https://r.jina.ai/${encodeURIComponent(`${cleanBase}/streams/${videoId}`)}`;
-        const res = await fetch(`${cleanBase}/streams/${videoId}`, {
-          signal: controller.signal,
-          mode: 'cors'
-        });
-        clearTimeout(timeout);
-        if (!res.ok) return null;
-        const data = await res.json();
-        if (data.audioStreams && data.audioStreams.length > 0) {
-          const sorted = [...data.audioStreams].sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0));
-          const m4a = sorted.find(s => (s.mimeType || '').includes('mp4') || (s.format || '').toUpperCase() === 'M4A');
-          return (m4a || sorted[0]).url;
-        }
-        return data.url || null;
-      } catch (e) {
-        clearTimeout(timeout);
-        // Fallback über alternatives Gateway
-        try {
-          const altRes = await fetch(`https://piped-api.garudalinux.org/streams/${videoId}`);
-          if (altRes.ok) {
-            const altData = await altRes.json();
-            if (altData.audioStreams && altData.audioStreams.length > 0) {
-              return altData.audioStreams[0].url;
-            }
-          }
-        } catch (err) {}
-        return null;
-      }
-    }
 
     async function resolveBackgroundAudioStream(videoId) {
       if (state.streamProxy.trim()) {
         try {
-          const res = await fetch(`${state.streamProxy.trim()}/${videoId}`);
+          const proxyBase = state.streamProxy.trim().replace(/\/+$/, '');
+          const res = await fetch(`${proxyBase}/${videoId}`);
           if (res.ok) {
             const json = await res.json();
             if (json.url) return json.url;
@@ -1858,12 +1749,23 @@
       }
 
       for (const baseUrl of PUBLIC_PIPED_INSTANCES) {
-        const url = await tryFetchFromPiped(baseUrl, videoId);
-        if (url) return url;
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 4000);
+          const res = await fetch(`${baseUrl}/streams/${videoId}`, { signal: controller.signal });
+          clearTimeout(timeout);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.audioStreams && data.audioStreams.length > 0) {
+              const sorted = [...data.audioStreams].sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0));
+              const m4a = sorted.find(s => (s.mimeType || '').includes('mp4') || (s.format || '').toUpperCase() === 'M4A');
+              return (m4a || sorted[0]).url;
+            }
+          }
+        } catch (err) {}
       }
 
-      // Ultima Ratio Fallback: Direkter Embed-Audio-Stream oder Demo-Stream wenn gesperrt
-      return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      return null;
     }
 
     function setPlayingState(playing) {
@@ -1893,40 +1795,14 @@
         navigator.mediaSession.metadata = new MediaMetadata({
           title: track.title,
           artist: track.artist,
-          album: track.album || 'Botify Webplayer PWA',
-          artwork: [
-            { src: track.cover, sizes: '96x96', type: 'image/jpeg' },
-            { src: track.cover, sizes: '256x256', type: 'image/jpeg' },
-            { src: track.cover, sizes: '512x512', type: 'image/jpeg' }
-          ]
+          album: track.album || 'Botify Webplayer',
+          artwork: [{ src: track.cover, sizes: '512x512', type: 'image/jpeg' }]
         });
-
-        navigator.mediaSession.setActionHandler('play', () => playAudio());
-        navigator.mediaSession.setActionHandler('pause', () => pauseAudio());
-        navigator.mediaSession.setActionHandler('previoustrack', () => playPrevious());
-        navigator.mediaSession.setActionHandler('nexttrack', () => playNext());
-        navigator.mediaSession.setActionHandler('seekto', (details) => {
-          if (details.seekTime == null) return;
-          if (isFinite(audio.duration)) {
-            audio.currentTime = details.seekTime;
-            updatePositionState();
-          }
-        });
+        navigator.mediaSession.setActionHandler('play', playAudio);
+        navigator.mediaSession.setActionHandler('pause', pauseAudio);
+        navigator.mediaSession.setActionHandler('previoustrack', playPrevious);
+        navigator.mediaSession.setActionHandler('nexttrack', playNext);
       } catch (e) {}
-    }
-
-    function updatePositionState() {
-      if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
-        try {
-          if (isFinite(audio.duration) && audio.duration > 0) {
-            navigator.mediaSession.setPositionState({
-              duration: audio.duration,
-              playbackRate: audio.playbackRate || 1,
-              position: Math.min(audio.currentTime || 0, audio.duration)
-            });
-          }
-        } catch (e) {}
-      }
     }
 
     async function loadAndPlayTrack(index, customQueue = null) {
@@ -1942,39 +1818,33 @@
       addRecentTrack(track);
       updatePlayerUI(track);
       updateMediaSession(track);
-      updateProgressDisplay(0, track.duration || 0);
       renderMainView();
 
       let directAudioUrl = track.audioUrl || null;
       if (!directAudioUrl && track.videoId) {
+        showToast('Lade Audio-Stream...');
         directAudioUrl = await resolveBackgroundAudioStream(track.videoId);
       }
 
       if (directAudioUrl) {
-        if (directAudioUrl.includes('youtube.com/embed/')) {
-          // Fallback für geschützte Streams: Nahtloser Übergang
-          showToast('Starte Audio-Stream Fallback...');
-        }
         audio.src = directAudioUrl;
         audio.load();
         try {
           await audio.play();
           setPlayingState(true);
           return;
-        } catch (err) {
-          console.warn('Audio-Stream Fehler:', err);
-        }
+        } catch (err) {}
       }
 
       setPlayingState(false);
-      showToast('Audio-Stream konnte nicht geladen werden.');
+      showToast('Stream konnte nicht geladen werden. Bitte Proxy eintragen.');
     }
 
     async function playAudio() {
       try {
         await audio.play();
         setPlayingState(true);
-      } catch (err) {
+      } catch (e) {
         setPlayingState(false);
       }
     }
@@ -1998,57 +1868,31 @@
 
     function playNext() {
       if (state.queue.length === 0) return;
-      if (state.repeatMode === 'one') {
-        audio.currentTime = 0;
-        playAudio();
-        return;
-      }
-      let nextIdx;
-      if (state.shuffle) {
-        nextIdx = Math.floor(Math.random() * state.queue.length);
-      } else {
-        nextIdx = state.currentIndex + 1;
-        if (nextIdx >= state.queue.length) {
-          if (state.repeatMode === 'all') {
-            nextIdx = 0;
-          } else {
-            pauseAudio();
-            return;
-          }
-        }
-      }
+      let nextIdx = state.shuffle ? Math.floor(Math.random() * state.queue.length) : state.currentIndex + 1;
+      if (nextIdx >= state.queue.length) nextIdx = 0;
       loadAndPlayTrack(nextIdx);
     }
 
     function playPrevious() {
       if (state.queue.length === 0) return;
-      if (audio.currentTime > 3) {
-        audio.currentTime = 0;
-        return;
-      }
       let prevIdx = state.currentIndex - 1;
       if (prevIdx < 0) prevIdx = state.queue.length - 1;
       loadAndPlayTrack(prevIdx);
     }
 
-    function updateProgressDisplay(cur, dur) {
-      const pct = dur > 0 ? Math.min(100, (cur / dur) * 100) : 0;
+    audio.addEventListener('play', () => setPlayingState(true));
+    audio.addEventListener('pause', () => setPlayingState(false));
+    audio.addEventListener('timeupdate', () => {
+      const cur = audio.currentTime || 0;
+      const dur = audio.duration || 0;
+      const pct = dur > 0 ? (cur / dur) * 100 : 0;
       document.getElementById('time-current').textContent = formatTime(cur);
       document.getElementById('time-total').textContent = formatTime(dur);
       document.getElementById('progress-fill').style.width = `${pct}%`;
-
       document.getElementById('fs-time-current').textContent = formatTime(cur);
       document.getElementById('fs-time-total').textContent = formatTime(dur);
       document.getElementById('fs-progress-fill').style.width = `${pct}%`;
-    }
-
-    audio.addEventListener('play', () => setPlayingState(true));
-    audio.addEventListener('playing', () => setPlayingState(true));
-    audio.addEventListener('pause', () => setPlayingState(false));
-    audio.addEventListener('timeupdate', () => {
-      updateProgressDisplay(audio.currentTime || 0, audio.duration || 0);
     });
-    audio.addEventListener('loadedmetadata', updatePositionState);
     audio.addEventListener('ended', playNext);
 
     function updatePlayButtonsUI() {
@@ -2061,28 +1905,21 @@
 
     function updatePlayerUI(track) {
       if (!track) return;
-      const coverHtml = `<img src="${escapeHtml(track.cover)}" alt="" onerror="this.src='https://placehold.co/400x400/1f1f1f/ffffff?text=Musik'">`;
+      const coverHtml = `<img src="${escapeHtml(track.cover)}" alt="">`;
       document.getElementById('player-cover').innerHTML = coverHtml;
       document.getElementById('player-title').textContent = track.title;
       document.getElementById('player-artist').textContent = track.artist;
-
       document.getElementById('fs-cover').innerHTML = coverHtml;
       document.getElementById('fs-title').textContent = track.title;
       document.getElementById('fs-artist').textContent = track.artist;
-
-      const likedPl = state.playlists.find(p => p.id === 'liked');
-      const isLiked = likedPl && likedPl.tracks.some(t => t.id === track.id);
-      document.getElementById('btn-like-current').classList.toggle('active', Boolean(isLiked));
-      document.getElementById('btn-fs-like').classList.toggle('active', Boolean(isLiked));
     }
 
     /*************************************************************************
-     * 4. GOOGLE / YOUTUBE DATA API V3 MUSIKSUCHE + DEMO-FALLBACK
+     * 4. GOOGLE API SUCHE
      *************************************************************************/
     async function searchMusic(query) {
       const q = query.trim();
       state.searchQuery = q;
-
       if (!q) {
         state.searchResults = [];
         renderMainView();
@@ -2096,10 +1933,7 @@
 
       if (!state.apiKey.trim()) {
         const lower = q.toLowerCase();
-        const filtered = DEMO_TRACKS.filter(t =>
-          t.title.toLowerCase().includes(lower) || t.artist.toLowerCase().includes(lower)
-        );
-        state.searchResults = filtered.length > 0 ? filtered : DEMO_TRACKS;
+        state.searchResults = DEMO_TRACKS.filter(t => t.title.toLowerCase().includes(lower) || t.artist.toLowerCase().includes(lower));
         state.isSearching = false;
         renderMainView();
         return;
@@ -2107,42 +1941,36 @@
 
       try {
         const key = encodeURIComponent(state.apiKey.trim());
-        const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoEmbeddable=true&videoCategoryId=10&maxResults=20&q=${encodeURIComponent(q)}&key=${key}`;
-        const res = await fetch(searchUrl);
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoEmbeddable=true&videoCategoryId=10&maxResults=20&q=${encodeURIComponent(q)}&key=${key}`);
         const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.error?.message || 'Google API Fehler');
-        }
+        if (!res.ok) throw new Error(data.error?.message || 'API Fehler');
 
         const items = data.items || [];
         const videoIds = items.map(i => i.id.videoId).filter(Boolean).join(',');
         let durationsMap = {};
 
         if (videoIds) {
-          try {
-            const detailsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoIds}&key=${key}`);
-            if (detailsRes.ok) {
-              const detailsData = await detailsRes.json();
-              (detailsData.items || []).forEach(v => {
-                durationsMap[v.id] = parseISODuration(v.contentDetails?.duration);
-              });
-            }
-          } catch (e) {}
+          const detailsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoIds}&key=${key}`);
+          if (detailsRes.ok) {
+            const detailsData = await detailsRes.json();
+            (detailsData.items || []).forEach(v => {
+              durationsMap[v.id] = parseISODuration(v.contentDetails?.duration);
+            });
+          }
         }
 
         state.searchResults = items.map(item => ({
           id: 'yt-' + item.id.videoId,
           videoId: item.id.videoId,
-          title: decodeHtmlEntities(item.snippet.title),
+          title: item.snippet.title,
           artist: item.snippet.channelTitle,
-          album: 'YouTube Music',
+          album: 'YouTube',
           duration: durationsMap[item.id.videoId] || 0,
           cover: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.medium?.url || 'https://placehold.co/400x400/1f1f1f/1ed760?text=Song',
           audioUrl: null
         }));
       } catch (err) {
-        showToast('API-Fehler: ' + err.message);
+        showToast('Suchfehler: ' + err.message);
         state.searchResults = [];
       }
 
@@ -2150,14 +1978,8 @@
       renderMainView();
     }
 
-    function decodeHtmlEntities(text) {
-      const txt = document.createElement('textarea');
-      txt.innerHTML = text || '';
-      return txt.value;
-    }
-
     /*************************************************************************
-     * 5. PLAYLIST-VERWALTUNG & ANZEIGE BEIM ANKLICKEN
+     * 5. PLAYLISTS & UI RENDER
      *************************************************************************/
     function openPlaylistDetail(playlistId) {
       state.selectedPlaylistId = playlistId;
@@ -2165,11 +1987,6 @@
       state.searchQuery = '';
       document.getElementById('search-input').value = '';
       updateChipsUI();
-      if (window.innerWidth <= 768) {
-        document.querySelectorAll('.mobile-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === 'home'));
-        document.getElementById('sidebar-panel').classList.remove('mobile-active');
-        document.getElementById('main-panel').classList.add('mobile-active');
-      }
       renderLibrary();
       renderMainView();
     }
@@ -2178,168 +1995,83 @@
       const list = document.getElementById('library-list');
       list.innerHTML = state.playlists.map(pl => {
         const isActive = state.activeView === 'playlist-detail' && state.selectedPlaylistId === pl.id;
-        const coverHtml = pl.id === 'liked'
-          ? `<div class="playlist-cover liked">♥</div>`
-          : pl.tracks[0]?.cover
-            ? `<div class="playlist-cover"><img src="${escapeHtml(pl.tracks[0].cover)}" style="width:100%;height:100%;object-fit:cover;" alt=""></div>`
-            : `<div class="playlist-cover">🎵</div>`;
-
         return `
           <div class="playlist-item ${isActive ? 'active' : ''}" data-playlist-id="${escapeHtml(pl.id)}">
-            ${coverHtml}
+            <div class="playlist-cover ${pl.id === 'liked' ? 'liked' : ''}">${pl.id === 'liked' ? '♥' : '🎵'}</div>
             <div class="playlist-info">
               <div class="playlist-name">${escapeHtml(pl.name)}</div>
-              <div class="playlist-meta">Playlist • ${pl.tracks.length} ${pl.tracks.length === 1 ? 'Song' : 'Songs'}</div>
+              <div class="playlist-meta">Playlist • ${pl.tracks.length} Songs</div>
             </div>
           </div>
         `;
       }).join('');
 
       list.querySelectorAll('.playlist-item').forEach(el => {
-        el.addEventListener('click', () => {
-          openPlaylistDetail(el.dataset.playlistId);
-        });
+        el.addEventListener('click', () => openPlaylistDetail(el.dataset.playlistId));
       });
     }
 
-    function toggleLikeTrack(track) {
-      if (!track) return;
-      const likedPl = state.playlists.find(p => p.id === 'liked');
-      if (!likedPl) return;
-      const idx = likedPl.tracks.findIndex(t => t.id === track.id);
-      if (idx >= 0) {
-        likedPl.tracks.splice(idx, 1);
-        showToast('Aus Lieblingssongs entfernt');
-      } else {
-        likedPl.tracks.unshift(track);
-        showToast('Zu Lieblingssongs hinzugefügt');
-      }
-      savePlaylists();
-      renderLibrary();
-      if (state.queue[state.currentIndex]?.id === track.id) {
-        updatePlayerUI(track);
-      }
-      if (state.activeView === 'playlist-detail' && state.selectedPlaylistId === 'liked') {
-        renderMainView();
-      }
-    }
-
-    function openAddToPlaylistModal(track) {
-      state.pendingTrackForPlaylist = track;
-      const container = document.getElementById('add-playlist-options');
-      container.innerHTML = state.playlists.map(pl => {
-        const exists = pl.tracks.some(t => t.id === track.id);
-        return `
-          <button class="btn-secondary" style="display:flex; justify-content:space-between; align-items:center; width:100%; text-align:left; border-radius:8px; padding:12px;" data-target-pl="${escapeHtml(pl.id)}">
-            <span>${escapeHtml(pl.name)}</span>
-            <span style="color: ${exists ? 'var(--essential-bright-accent)' : 'var(--text-subdued)'}; font-size:12px;">
-              ${exists ? '✓ Enthalten' : '+ Hinzufügen'}
-            </span>
-          </button>
-        `;
-      }).join('');
-
-      container.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const pl = state.playlists.find(p => p.id === btn.dataset.targetPl);
-          if (pl && state.pendingTrackForPlaylist) {
-            const existsIdx = pl.tracks.findIndex(t => t.id === state.pendingTrackForPlaylist.id);
-            if (existsIdx >= 0) {
-              pl.tracks.splice(existsIdx, 1);
-              showToast(`Aus "${pl.name}" entfernt`);
-            } else {
-              pl.tracks.push(state.pendingTrackForPlaylist);
-              showToast(`Zu "${pl.name}" hinzugefügt`);
-            }
-            savePlaylists();
-            renderLibrary();
-            if (state.activeView === 'playlist-detail' && state.selectedPlaylistId === pl.id) {
-              renderMainView();
-            }
-          }
-          document.getElementById('add-to-playlist-modal').classList.remove('open');
-        });
-      });
-
-      document.getElementById('add-to-playlist-modal').classList.add('open');
-    }
-
-    /*************************************************************************
-     * 6. HAUPTANSICHT RENDERN
-     *************************************************************************/
-    function renderTrackRow(track, idx, listSource, allowRemoveFromPl = null) {
-      const currentTrack = state.queue[state.currentIndex];
-      const isPlaying = currentTrack && currentTrack.id === track.id;
-      const likedPl = state.playlists.find(p => p.id === 'liked');
-      const isLiked = likedPl && likedPl.tracks.some(t => t.id === track.id);
-
+    function renderTrackRow(track, idx, tracksList, removablePlId = null) {
+      const isPlaying = state.queue[state.currentIndex]?.id === track.id;
       return `
-        <div class="track-row ${isPlaying ? 'playing' : ''}" data-track-idx="${idx}" data-track-id="${escapeHtml(track.id)}">
+        <div class="track-row ${isPlaying ? 'playing' : ''}" data-track-idx="${idx}">
           <div class="track-index">${isPlaying && state.isPlaying ? '▶' : idx + 1}</div>
-          <img class="track-thumb" src="${escapeHtml(track.cover)}" alt="" onerror="this.src='https://placehold.co/100x100/1f1f1f/ffffff?text=♪'">
+          <img class="track-thumb" src="${escapeHtml(track.cover)}" alt="">
           <div class="track-meta">
             <div class="track-title">${escapeHtml(track.title)}</div>
             <div class="track-artist">${escapeHtml(track.artist)}</div>
           </div>
           <div class="track-actions">
-            <button class="icon-btn btn-like-row ${isLiked ? 'active' : ''}" data-idx="${idx}" title="Zu Lieblingssongs hinzufügen" aria-label="Gefällt mir">
-              <svg viewBox="0 0 16 16" width="16" height="16">
-                <path d="M1.69 2A4.582 4.582 0 0 1 8 2.023 4.583 4.583 0 0 1 11.88.817h.002a4.618 4.618 0 0 1 3.782 3.65v.003a4.543 4.543 0 0 1-1.011 3.84L9.35 14.629a1.765 1.765 0 0 1-2.093.464 1.762 1.762 0 0 1-.605-.463L1.348 8.309A4.582 4.582 0 0 1 1.689 2zm3.158.252A3.082 3.082 0 0 0 2.49 7.337l.005.005L7.8 13.664a.264.264 0 0 0 .311.069.262.262 0 0 0 .09-.069l5.312-6.33a3.043 3.043 0 0 0 .68-2.573 3.118 3.118 0 0 0-2.551-2.463 3.079 3.079 0 0 0-2.612.816l-.007.007a1.501 1.501 0 0 1-2.045 0l-.009-.008a3.082 3.082 0 0 0-2.121-.861z"></path>
-              </svg>
-            </button>
-            <button class="icon-btn btn-add-pl" data-idx="${idx}" title="Zu Playlist hinzufügen" aria-label="Zu Playlist hinzufügen">
-              <svg viewBox="0 0 16 16" width="16" height="16">
-                <path d="M15.25 8a.75.75 0 0 1-.75.75H8.75v5.75a.75.75 0 0 1-1.5 0V8.75H1.5a.75.75 0 0 1 0-1.5h5.75V1.5a.75.75 0 0 1 1.5 0v5.75h5.75a.75.75 0 0 1 .75.75z"></path>
-              </svg>
-            </button>
-            ${allowRemoveFromPl ? `
-              <button class="icon-btn btn-rem-pl" data-idx="${idx}" title="Aus Playlist entfernen" aria-label="Entfernen">✕</button>
-            ` : ''}
+            <button class="icon-btn btn-add-pl" data-idx="${idx}" title="Zu Playlist">＋</button>
+            ${removablePlId ? `<button class="icon-btn btn-rem-pl" data-idx="${idx}" title="Entfernen">✕</button>` : ''}
             <span class="track-duration">${track.duration > 0 ? formatTime(track.duration) : ''}</span>
           </div>
         </div>
       `;
     }
 
-    function attachTrackRowListeners(container, tracks, playlistId = null) {
-      if (!container) return;
+    function attachTrackListeners(container, tracksList, plId = null) {
       container.querySelectorAll('.track-row').forEach(row => {
         row.addEventListener('click', (e) => {
-          if (e.target.closest('.btn-add-pl') || e.target.closest('.btn-rem-pl') || e.target.closest('.btn-like-row')) return;
-          const idx = parseInt(row.dataset.trackIdx, 10);
-          loadAndPlayTrack(idx, tracks);
+          if (e.target.closest('button')) return;
+          loadAndPlayTrack(parseInt(row.dataset.trackIdx, 10), tracksList);
         });
       });
-
-      container.querySelectorAll('.btn-like-row').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const idx = parseInt(btn.dataset.idx, 10);
-          toggleLikeTrack(tracks[idx]);
-          renderMainView();
-        });
-      });
-
       container.querySelectorAll('.btn-add-pl').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          const idx = parseInt(btn.dataset.idx, 10);
-          openAddToPlaylistModal(tracks[idx]);
+          const tr = tracksList[parseInt(btn.dataset.idx, 10)];
+          state.pendingTrackForPlaylist = tr;
+          const opts = document.getElementById('add-playlist-options');
+          opts.innerHTML = state.playlists.map(p => `
+            <button class="btn-secondary" style="width:100%; text-align:left; padding:10px;" data-pl-id="${p.id}">${escapeHtml(p.name)}</button>
+          `).join('');
+          opts.querySelectorAll('button').forEach(b => {
+            b.addEventListener('click', () => {
+              const targetPl = state.playlists.find(x => x.id === b.dataset.plId);
+              if (targetPl && state.pendingTrackForPlaylist) {
+                targetPl.tracks.push(state.pendingTrackForPlaylist);
+                savePlaylists();
+                renderLibrary();
+                showToast(`Zu "${targetPl.name}" hinzugefügt`);
+              }
+              document.getElementById('add-to-playlist-modal').classList.remove('open');
+            });
+          });
+          document.getElementById('add-to-playlist-modal').classList.add('open');
         });
       });
-
-      if (playlistId) {
+      if (plId) {
         container.querySelectorAll('.btn-rem-pl').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const idx = parseInt(btn.dataset.idx, 10);
-            const pl = state.playlists.find(p => p.id === playlistId);
+            const pl = state.playlists.find(p => p.id === plId);
             if (pl) {
-              pl.tracks.splice(idx, 1);
+              pl.tracks.splice(parseInt(btn.dataset.idx, 10), 1);
               savePlaylists();
               renderLibrary();
               renderMainView();
-              showToast('Song entfernt');
+              showToast('Entfernt');
             }
           });
         });
@@ -2348,219 +2080,67 @@
 
     function renderMainView() {
       const container = document.getElementById('main-content');
-
       if (state.searchQuery.trim() && state.activeView === 'all') {
         if (state.isSearching) {
-          container.innerHTML = `<div style="padding: 40px 0; text-align: center; color: var(--text-subdued);">Suche nach „${escapeHtml(state.searchQuery)}“...</div>`;
-          return;
-        }
-        if (state.searchResults.length === 0) {
-          container.innerHTML = `<div style="padding: 40px 0; text-align: center; color: var(--text-subdued);">Keine Ergebnisse für „${escapeHtml(state.searchQuery)}“ gefunden.</div>`;
+          container.innerHTML = `<div style="padding:40px; text-align:center; color:var(--text-subdued);">Suche...</div>`;
           return;
         }
         container.innerHTML = `
-          <div class="section-header">
-            <h2 class="section-title">Suchergebnisse für „${escapeHtml(state.searchQuery)}“</h2>
-          </div>
-          <div class="track-list" id="search-track-list">
-            ${state.searchResults.map((t, i) => renderTrackRow(t, i, state.searchResults)).join('')}
-          </div>
+          <h2 class="section-title" style="margin-bottom:16px;">Suchergebnisse</h2>
+          <div class="track-list" id="search-list">${state.searchResults.map((t, i) => renderTrackRow(t, i, state.searchResults)).join('')}</div>
         `;
-        attachTrackRowListeners(document.getElementById('search-track-list'), state.searchResults);
+        attachTrackListeners(document.getElementById('search-list'), state.searchResults);
         return;
       }
 
       if (state.activeView === 'playlist-detail') {
         const pl = state.playlists.find(p => p.id === state.selectedPlaylistId);
-        if (!pl) {
-          state.activeView = 'all';
-          renderMainView();
-          return;
-        }
+        if (!pl) return;
         container.innerHTML = `
-          <div class="section-header" style="flex-wrap: wrap;">
-            <div style="display:flex; align-items:center; gap:16px;">
-              <div style="width:72px; height:72px; border-radius:8px; background: ${pl.id === 'liked' ? 'linear-gradient(135deg, #450af5, #c4efd9)' : 'var(--bg-elevated-press)'}; display:flex; align-items:center; justify-content:center; font-size:28px; overflow:hidden; flex-shrink:0;">
-                ${pl.id === 'liked' ? '♥' : pl.tracks[0]?.cover ? `<img src="${escapeHtml(pl.tracks[0].cover)}" style="width:100%;height:100%;object-fit:cover;" alt="">` : '🎵'}
-              </div>
-              <div>
-                <span style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-subdued);">Playlist</span>
-                <h1 class="section-title" style="font-size: 28px; margin-top: 2px;">${escapeHtml(pl.name)}</h1>
-                <p style="font-size: 13px; color: var(--text-subdued); margin-top: 4px;">${pl.tracks.length} ${pl.tracks.length === 1 ? 'Song' : 'Songs'}</p>
-              </div>
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">${escapeHtml(pl.name)}</h1>
+              <p style="color:var(--text-subdued); font-size:13px; margin-top:4px;">${pl.tracks.length} Songs</p>
             </div>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              ${pl.tracks.length > 0 ? `<button class="btn-primary" id="btn-play-playlist">▶ Abspielen</button>` : ''}
-              ${!pl.isSystem ? `
-                <button class="btn-secondary" id="btn-rename-pl">Umbenennen</button>
-                <button class="btn-secondary" id="btn-delete-pl" style="color: #f87171;">Löschen</button>
-              ` : ''}
-            </div>
+            ${pl.tracks.length > 0 ? `<button class="btn-primary" id="btn-play-pl">▶ Abspielen</button>` : ''}
           </div>
-          <div class="track-list" id="pl-track-list">
-            ${pl.tracks.length === 0
-              ? `<p style="color: var(--text-subdued); padding: 24px 0;">Diese Playlist ist noch leer. Suche oben nach Songs und klicke auf „+“, um sie hinzuzufügen.</p>`
-              : pl.tracks.map((t, i) => renderTrackRow(t, i, pl.tracks, pl.id)).join('')
-            }
-          </div>
+          <div class="track-list" id="pl-list">${pl.tracks.map((t, i) => renderTrackRow(t, i, pl.tracks, pl.id)).join('')}</div>
         `;
-
         if (pl.tracks.length > 0) {
-          document.getElementById('btn-play-playlist').addEventListener('click', () => loadAndPlayTrack(0, pl.tracks));
-          attachTrackRowListeners(document.getElementById('pl-track-list'), pl.tracks, pl.id);
+          document.getElementById('btn-play-pl').addEventListener('click', () => loadAndPlayTrack(0, pl.tracks));
+          attachTrackListeners(document.getElementById('pl-list'), pl.tracks, pl.id);
         }
-
-        if (!pl.isSystem) {
-          document.getElementById('btn-rename-pl').addEventListener('click', () => openPlaylistModal('rename', pl));
-          document.getElementById('btn-delete-pl').addEventListener('click', () => {
-            state.playlists = state.playlists.filter(p => p.id !== pl.id);
-            savePlaylists();
-            state.activeView = 'all';
-            renderLibrary();
-            renderMainView();
-            showToast('Playlist gelöscht');
-          });
-        }
-        return;
-      }
-
-      if (state.activeView === 'queue') {
-        container.innerHTML = `
-          <div class="section-header">
-            <h2 class="section-title">Warteschlange</h2>
-          </div>
-          <div class="track-list" id="queue-track-list">
-            ${state.queue.length === 0
-              ? `<p style="color: var(--text-subdued); padding: 24px 0;">Die Warteschlange ist leer.</p>`
-              : state.queue.map((t, i) => renderTrackRow(t, i, state.queue)).join('')
-            }
-          </div>
-        `;
-        attachTrackRowListeners(document.getElementById('queue-track-list'), state.queue);
-        return;
-      }
-
-      if (state.activeView === 'playlists') {
-        container.innerHTML = `
-          <div class="section-header">
-            <h2 class="section-title">Deine Playlists</h2>
-            <button class="btn-secondary" id="btn-new-pl-inline">+ Neue Playlist</button>
-          </div>
-          <div class="cards-grid">
-            ${state.playlists.map(pl => `
-              <div class="music-card" data-open-pl="${escapeHtml(pl.id)}">
-                <div class="card-cover-wrap" style="display:flex;align-items:center;justify-content:center;font-size:40px;background:${pl.id === 'liked' ? 'linear-gradient(135deg, #450af5, #c4efd9)' : 'var(--bg-elevated-press)'};">
-                  ${pl.id === 'liked' ? '♥' : pl.tracks[0]?.cover ? `<img src="${escapeHtml(pl.tracks[0].cover)}" alt="">` : '🎵'}
-                </div>
-                <div class="card-title">${escapeHtml(pl.name)}</div>
-                <div class="card-subtitle">${pl.tracks.length} ${pl.tracks.length === 1 ? 'Song' : 'Songs'}</div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-        document.getElementById('btn-new-pl-inline').addEventListener('click', () => openPlaylistModal('create'));
-        container.querySelectorAll('[data-open-pl]').forEach(card => {
-          card.addEventListener('click', () => openPlaylistDetail(card.dataset.openPl));
-        });
         return;
       }
 
       container.innerHTML = `
-        <div class="section-header">
-          <h2 class="section-title">Deine Playlists</h2>
-          <button class="btn-secondary" id="btn-home-new-pl">+ Neue Playlist</button>
-        </div>
+        <div class="section-header"><h2 class="section-title">Deine Playlists</h2></div>
         <div class="cards-grid">
           ${state.playlists.map(pl => `
             <div class="music-card" data-open-pl="${escapeHtml(pl.id)}">
-              <div class="card-cover-wrap" style="display:flex;align-items:center;justify-content:center;font-size:40px;background:${pl.id === 'liked' ? 'linear-gradient(135deg, #450af5, #c4efd9)' : 'var(--bg-elevated-press)'};">
-                ${pl.id === 'liked' ? '♥' : pl.tracks[0]?.cover ? `<img src="${escapeHtml(pl.tracks[0].cover)}" alt="">` : '🎵'}
-              </div>
+              <div class="card-cover-wrap" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🎵</div>
               <div class="card-title">${escapeHtml(pl.name)}</div>
-              <div class="card-subtitle">${pl.tracks.length} ${pl.tracks.length === 1 ? 'Song' : 'Songs'}</div>
+              <div class="card-subtitle">${pl.tracks.length} Songs</div>
             </div>
           `).join('')}
         </div>
-
-        ${state.recentTracks.length > 0 ? `
-          <div class="section-header">
-            <h2 class="section-title">Zuletzt gehört</h2>
-          </div>
-          <div class="track-list" id="recent-track-list">
-            ${state.recentTracks.map((t, i) => renderTrackRow(t, i, state.recentTracks)).join('')}
-          </div>
-        ` : `
-          <div style="background: var(--bg-tinted-base); border-radius: 12px; padding: 24px; text-align: center; margin-top: 8px;">
-            <h3 style="font-size: 16px; margin-bottom: 8px;">Bereit zum Streamen</h3>
-            <p style="font-size: 13px; color: var(--text-subdued); max-width: 460px; margin: 0 auto 16px;">
-              ${state.apiKey.trim()
-                ? 'Nutze die Suchleiste oben, um nach deinen Lieblingssongs zu suchen, sie abzuspielen und in Playlists zu speichern.'
-                : 'Hinterlege oben rechts deinen Google API Key für die YouTube-Musiksuche oder teste sofort die Demo-Audio-Streams.'}
-            </p>
-            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-              ${!state.apiKey.trim() ? `<button class="btn-primary" id="btn-home-setup-api">Google API Key eintragen</button>` : ''}
-              <button class="btn-secondary" id="btn-home-play-demo">▶ Demo-Streams testen</button>
-            </div>
-          </div>
-        `}
       `;
-
-      document.getElementById('btn-home-new-pl').addEventListener('click', () => openPlaylistModal('create'));
       container.querySelectorAll('[data-open-pl]').forEach(card => {
         card.addEventListener('click', () => openPlaylistDetail(card.dataset.openPl));
       });
-
-      if (state.recentTracks.length > 0) {
-        attachTrackRowListeners(document.getElementById('recent-track-list'), state.recentTracks);
-      } else {
-        if (document.getElementById('btn-home-setup-api')) {
-          document.getElementById('btn-home-setup-api').addEventListener('click', openSettings);
-        }
-        if (document.getElementById('btn-home-play-demo')) {
-          document.getElementById('btn-home-play-demo').addEventListener('click', () => loadAndPlayTrack(0, DEMO_TRACKS));
-        }
-      }
     }
 
     // Event Bindings
     document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => switchMobileTab(btn.dataset.tab));
     });
-
     document.getElementById('btn-home').addEventListener('click', () => {
       state.searchQuery = '';
       document.getElementById('search-input').value = '';
       state.activeView = 'all';
       updateChipsUI();
-      renderLibrary();
       renderMainView();
     });
-
-    document.getElementById('btn-logo').addEventListener('click', () => {
-      document.getElementById('btn-home').click();
-    });
-
-    document.querySelectorAll('#chips-row .chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        state.activeView = chip.dataset.filter;
-        updateChipsUI();
-        renderLibrary();
-        renderMainView();
-      });
-    });
-
-    let searchTimeout;
-    document.getElementById('search-input').addEventListener('input', (e) => {
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => searchMusic(e.target.value), 350);
-    });
-    document.getElementById('search-input').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        clearTimeout(searchTimeout);
-        searchMusic(e.target.value);
-      }
-    });
-
     document.getElementById('btn-play').addEventListener('click', togglePlayPause);
     document.getElementById('btn-fs-play').addEventListener('click', togglePlayPause);
     document.getElementById('btn-next').addEventListener('click', playNext);
@@ -2568,89 +2148,17 @@
     document.getElementById('btn-prev').addEventListener('click', playPrevious);
     document.getElementById('btn-fs-prev').addEventListener('click', playPrevious);
 
-    function toggleShuffle() {
-      state.shuffle = !state.shuffle;
-      document.getElementById('btn-shuffle').classList.toggle('active', state.shuffle);
-      document.getElementById('btn-fs-shuffle').classList.toggle('active', state.shuffle);
-      showToast(state.shuffle ? 'Zufallswiedergabe ein' : 'Zufallswiedergabe aus');
-    }
-    document.getElementById('btn-shuffle').addEventListener('click', toggleShuffle);
-    document.getElementById('btn-fs-shuffle').addEventListener('click', toggleShuffle);
-
-    function cycleRepeat() {
-      const modes = ['off', 'all', 'one'];
-      state.repeatMode = modes[(modes.indexOf(state.repeatMode) + 1) % modes.length];
-      const active = state.repeatMode !== 'off';
-      document.getElementById('btn-repeat').classList.toggle('active', active);
-      document.getElementById('btn-fs-repeat').classList.toggle('active', active);
-      const labels = { off: 'Wiederholen aus', all: 'Playlist wiederholen', one: 'Titel wiederholen' };
-      showToast(labels[state.repeatMode]);
-    }
-    document.getElementById('btn-repeat').addEventListener('click', cycleRepeat);
-    document.getElementById('btn-fs-repeat').addEventListener('click', cycleRepeat);
-
-    function handleSeek(e, barEl) {
-      const rect = barEl.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-
-      if (!isFinite(audio.duration) || audio.duration <= 0) return;
-      audio.currentTime = pct * audio.duration;
-      updatePositionState();
-    }
-    document.getElementById('progress-bar').addEventListener('click', (e) => handleSeek(e, e.currentTarget));
-    document.getElementById('fs-progress-bar').addEventListener('click', (e) => handleSeek(e, e.currentTarget));
-
-    document.getElementById('volume-fill').style.width = `${state.volume * 100}%`;
-    document.getElementById('volume-bar').addEventListener('click', (e) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      state.volume = pct;
-      audio.volume = pct;
-      document.getElementById('volume-fill').style.width = `${pct * 100}%`;
-      localStorage.setItem(STORAGE_KEYS.VOLUME, String(pct));
-    });
-    document.getElementById('btn-mute').addEventListener('click', () => {
-      audio.muted = !audio.muted;
-      document.getElementById('volume-fill').style.width = audio.muted ? '0%' : `${state.volume * 100}%`;
+    let searchTimeout;
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => searchMusic(e.target.value), 350);
     });
 
-    document.getElementById('btn-like-current').addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleLikeTrack(state.queue[state.currentIndex]);
-    });
-    document.getElementById('btn-fs-like').addEventListener('click', () => {
-      toggleLikeTrack(state.queue[state.currentIndex]);
-    });
-    document.getElementById('btn-fs-add-playlist').addEventListener('click', () => {
-      const tr = state.queue[state.currentIndex];
-      if (tr) openAddToPlaylistModal(tr);
-    });
-    document.getElementById('btn-queue').addEventListener('click', () => {
-      state.activeView = state.activeView === 'queue' ? 'all' : 'queue';
-      updateChipsUI();
-      renderMainView();
-    });
-    document.getElementById('btn-bg-info').addEventListener('click', () => {
-      showToast('Safari Background Audio & Media Session aktiv');
-    });
-
-    document.getElementById('mini-player-trigger').addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        document.getElementById('mobile-fs-player').classList.add('open');
-      }
-    });
-    document.getElementById('btn-close-fs').addEventListener('click', () => {
-      document.getElementById('mobile-fs-player').classList.remove('open');
-    });
-
-    function openSettings() {
+    document.getElementById('btn-open-settings').addEventListener('click', () => {
       document.getElementById('input-google-api-key').value = state.apiKey;
       document.getElementById('input-stream-proxy').value = state.streamProxy;
       document.getElementById('settings-modal').classList.add('open');
-    }
-    document.getElementById('btn-open-settings').addEventListener('click', openSettings);
-    document.getElementById('api-status-badge').addEventListener('click', openSettings);
+    });
     document.getElementById('btn-close-settings').addEventListener('click', () => {
       document.getElementById('settings-modal').classList.remove('open');
     });
@@ -2661,84 +2169,29 @@
       localStorage.setItem(STORAGE_KEYS.STREAM_PROXY, state.streamProxy);
       updateApiStatusUI();
       document.getElementById('settings-modal').classList.remove('open');
-      showToast('Einstellungen gespeichert');
-      if (state.searchQuery) searchMusic(state.searchQuery);
+      showToast('Gespeichert');
     });
     document.getElementById('btn-clear-settings').addEventListener('click', () => {
       state.apiKey = '';
       state.streamProxy = '';
-      localStorage.removeItem(STORAGE_KEYS.API_KEY);
-      localStorage.removeItem(STORAGE_KEYS.STREAM_PROXY);
-      document.getElementById('input-google-api-key').value = '';
-      document.getElementById('input-stream-proxy').value = '';
+      localStorage.clear();
       updateApiStatusUI();
-      showToast('Einstellungen zurückgesetzt');
-    });
-    document.getElementById('btn-create-playlist').addEventListener('click', () => openPlaylistModal('create'));
-    document.getElementById('btn-close-playlist-modal').addEventListener('click', () => {
-      document.getElementById('playlist-modal').classList.remove('open');
-    });
-    document.getElementById('btn-confirm-playlist').addEventListener('click', () => {
-      const name = document.getElementById('input-playlist-name').value.trim();
-      if (!name) {
-        showToast('Bitte einen Namen eingeben');
-        return;
-      }
-      if (window.playlistModalMode === 'rename' && window.playlistModalTarget) {
-        window.playlistModalTarget.name = name;
-        showToast('Playlist umbenannt');
-      } else {
-        const newPl = {
-          id: 'pl-' + Date.now(),
-          name,
-          isSystem: false,
-          tracks: []
-        };
-        state.playlists.push(newPl);
-        state.selectedPlaylistId = newPl.id;
-        state.activeView = 'playlist-detail';
-        updateChipsUI();
-        showToast(`Playlist „${name}“ erstellt`);
-      }
-      savePlaylists();
-      renderLibrary();
-      renderMainView();
-      document.getElementById('playlist-modal').classList.remove('open');
-    });
-    document.getElementById('btn-close-add-modal').addEventListener('click', () => {
-      document.getElementById('add-to-playlist-modal').classList.remove('open');
+      showToast('Zurückgesetzt');
     });
 
-    document.getElementById('btn-custom-stream').addEventListener('click', () => {
-      document.getElementById('custom-stream-modal').classList.add('open');
+    document.getElementById('mini-player-trigger').addEventListener('click', () => {
+      if (window.innerWidth <= 768) document.getElementById('mobile-fs-player').classList.add('open');
     });
-    document.getElementById('btn-close-custom-stream').addEventListener('click', () => {
-      document.getElementById('custom-stream-modal').classList.remove('open');
+    document.getElementById('btn-close-fs').addEventListener('click', () => {
+      document.getElementById('mobile-fs-player').classList.remove('open');
     });
-    document.getElementById('btn-save-custom-stream').addEventListener('click', () => {
-      const title = document.getElementById('custom-title').value.trim() || 'Eigener Audio-Stream';
-      const artist = document.getElementById('custom-artist').value.trim() || 'Direkt-Stream';
-      const url = document.getElementById('custom-url').value.trim();
-      if (!url) {
-        showToast('Bitte eine gültige Audio-URL eingeben');
-        return;
-      }
-      const newTrack = {
-        id: 'custom-' + Date.now(),
-        title,
-        artist,
-        album: 'Eigene Streams',
-        duration: 0,
-        cover: 'https://placehold.co/400x400/1f1f1f/1ed760?text=Stream',
-        audioUrl: url
-      };
-      state.queue.unshift(newTrack);
-      document.getElementById('custom-stream-modal').classList.remove('open');
-      document.getElementById('custom-title').value = '';
-      document.getElementById('custom-artist').value = '';
-      document.getElementById('custom-url').value = '';
-      loadAndPlayTrack(0, state.queue);
-      showToast('Stream hinzugefügt');
+
+    document.getElementById('volume-bar').addEventListener('click', (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      state.volume = pct;
+      audio.volume = pct;
+      document.getElementById('volume-fill').style.width = `${pct * 100}%`;
     });
 
     updateApiStatusUI();
