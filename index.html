@@ -1737,16 +1737,11 @@
     ];
 
     async function resolveBackgroundAudioStream(videoId) {
-      if (state.streamProxy.trim()) {
-        try {
-          const proxyBase = state.streamProxy.trim().replace(/\/+$/, '');
-          const res = await fetch(`${proxyBase}/${videoId}`);
-          if (res.ok) {
-            const json = await res.json();
-            if (json.url) return json.url;
-          }
-        } catch (e) {}
-      }
+    if (state.streamProxy.trim()) {
+  const proxyBase = state.streamProxy.trim().replace(/\/+$/, '');
+  return `${proxyBase}/stream/${videoId}`;
+}
+  
 
       for (const baseUrl of PUBLIC_PIPED_INSTANCES) {
         try {
